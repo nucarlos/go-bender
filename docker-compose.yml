@@ -1,0 +1,51 @@
+version: "3"
+
+#services describe the containers that will start
+services:
+  # db is the container name for our DB API
+  db:
+    # specifies the postgres image
+    image: mongo:latest
+    hostname: db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=ewallet
+    # Connects the port 3001 of the db container to localhost:27017
+    ports: 
+      - "3001:27017" 
+    env_file:       
+      - .env 
+    # Connects the conf file of the container to the conf file in our folder
+    volumes: 
+      - mongodata:/data/db
+    # Connects the API to a common api.network bridge
+    networks:
+      - "api.network"
+  
+  # api is the container name for our Go API
+  api:
+    # It will look for a Dockerfile in the project root and build it
+    build: .
+    hostname: apiserver
+    # Connects the API to a common api.network bridge
+    networks:
+      - "api.network"
+    # If the container goes down, it will restart
+    restart: always
+    # Exposes the port 5000 from a container and binds it to a random port
+    ports:    
+      - "3000:3000"
+    env_file:
+      - .env
+    # It will start up the nginx only when all api containers have started
+    depends_on:
+      - db
+
+networks:
+  api.network:
+    external: true
+
+volumes: 
+  mongodata:
