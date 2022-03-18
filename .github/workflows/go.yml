@@ -19,6 +19,7 @@ jobs:
         go-version: 1.17
 
     - name: Download dependences
+      run: go get -u github.com/swaggo/swag/cmd/swag
       run: go mod download
 
     - name: Set up Swag Docs
