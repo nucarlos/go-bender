@@ -28,7 +28,7 @@ jobs:
       run: swag init
 
     - name: Build
-      run: go build -v ./...
+      run: CGO_ENABLED=1 go build -ldflags="-w -s" -v .
 
     - name: Test
       run: go test -v ./...
