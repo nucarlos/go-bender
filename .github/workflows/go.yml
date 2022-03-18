@@ -11,6 +11,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - uses: skolobov/gh-action-slack@v1
+        with:
+          status: starting
+          channel: '#workflows'
+        if: always()
+
     - uses: actions/checkout@v2
 
     - name: Set up Go
@@ -32,3 +38,10 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+      
+    - uses: skolobov/gh-action-slack@v1
+      with:
+        status: ${{ job.status }}
+        steps: ${{ toJson(steps) }}
+        channel: '#workflows'
+      if: always()
