@@ -39,7 +39,7 @@ jobs:
       run: go mod download
 
     - name: Set up Swag Docs
-      run: swag init
+      run: swag init --dir .,controllers/.,controllers/.,models/.
 
     - name: Build
       run: CGO_ENABLED=1 go build -ldflags="-w -s" -v .
