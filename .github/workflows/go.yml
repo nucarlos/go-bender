@@ -11,11 +11,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Slack Notify About Conflicts
-        uses: brainly/action-slack-notificator
-        with:
-          webhookUrl: ${{ secrets.SLACK_WEBHOOK }}
-          messageContent: 'Your custom message!'
+    - name: Slack Notify About Conflicts
+      uses: brainly/action-slack-notificator
+      with:
+        webhookUrl: ${{ secrets.SLACK_WEBHOOK }}
+        messageContent: 'Your custom message!'
     - uses: actions/checkout@v2
     - name: Set up Go
       uses: actions/setup-go@v2
