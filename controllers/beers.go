@@ -53,7 +53,7 @@ func CreateBeers(ctx *fiber.Ctx) error {
 	// Validate params
 	request := new(models.BeerItemPayload)
 	if err := ctx.BodyParser(request); err != nil {
-		return ctx.Status(400).SendString("Request invalida 1")
+		return ctx.Status(400).SendString("Request inválida 1")
 	}
 	if err := request.Validate(); err != nil {
 		return ctx.Status(400).SendString("Request invalida 2")
