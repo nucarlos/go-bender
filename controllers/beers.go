@@ -26,7 +26,7 @@ func GetAllBeers(ctx *fiber.Ctx) error {
 	}
 
 	return ctx.Status(200).JSON(fiber.Map{
-		"beer_items": beers,
+		"beer_items": *beers,
 	})
 }
 
