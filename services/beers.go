@@ -23,7 +23,7 @@ func NewBeerService() BeerService {
 func (s *beerService) SearchBeers() ([]models.BeerItem, error) {
 	beers, err := s.Repository.List()
 
-	if err != "" {
+	if err != nil {
 		return nil, err
 	}
 
